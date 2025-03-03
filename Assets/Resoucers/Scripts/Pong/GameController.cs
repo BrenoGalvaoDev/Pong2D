@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject loadPanel;
 
     [Space(10), Header("Components")]
-    [SerializeField] BallPong ballPong;
     [SerializeField] GameObject ballPrefab;
     [SerializeField] Transform parentBall;
     [SerializeField] PongEventsManager eventsManager;
@@ -25,7 +24,10 @@ public class GameController : MonoBehaviour
     [Space(10), Header("Settings")]
     [SerializeField] int maxScore;
     [SerializeField] int maxBallsToPooling;
-    [SerializeField, Tooltip("first = Easy, second/default = Normal, Third = Hard")] float[] timeToSpawn = new float[3]; //influences the spawn, and is directly related to the difficulty
+
+    //influences the spawn, and is directly related to the difficulty
+    [SerializeField, Tooltip("first = Easy, second/default = Normal, Third = Hard")] float[] timeToSpawn = new float[3]; 
+
     int indexSpawn = 0; //is used to choose the next index in the List of balls pooling
     float spawn; // is used to change the time to spawn a balls in game, is directly related to the difficulty
 
@@ -55,9 +57,11 @@ public class GameController : MonoBehaviour
         ObjectsPolling();
     }
 
+    //Update Score text and add the balls to the EventMAnager List
+    // the pause is true to not instatiate a ball in game, it is changed with the scena start button
     void Start()
     {
-        scoreText.text = opponentScore.ToString() + " : " + playerScore.ToString();
+        UpdateScoreText();
         pause = true;
         foreach (GameObject ball in balls)
         {
@@ -79,7 +83,7 @@ public class GameController : MonoBehaviour
 
     #region Functions
 
-    //Event called to pause game, player, opponent and balls depends on method
+    //Event called to pause game. player, opponent and balls depends on method
     public void PausedGame()
     {
         if (OnPausedGame != null)
@@ -118,7 +122,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //Instantiate a ball prefab, add it to the list, lock the transform, give it a random size and launch it into the game
+    //lock the transform, give it a random size and launch it into the game
     public void SpawnBall()
     {
         GameObject ball = balls[indexSpawn];
@@ -130,6 +134,7 @@ public class GameController : MonoBehaviour
         ball.GetComponent<BallPong>().LaunchBall();
     }
 
+    //Instantiate a ball prefab, add it to the list
     public void ObjectsPolling()
     {
         for (int i = 0; i < maxBallsToPooling; i++)
@@ -141,6 +146,8 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Called by button in scene
+    //Change the spawn time
     public void BallSpawnTime(int i)
     {
         OnChangedDifficulty(i);

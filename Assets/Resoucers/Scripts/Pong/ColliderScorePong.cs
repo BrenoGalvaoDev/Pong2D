@@ -10,7 +10,7 @@ public class ColliderScorePong : MonoBehaviour
     {
         if (collision.CompareTag("Ball"))
         {
-            events.Invoke();
+            events.Invoke(); // called a GameController method ( between PlayerScored and OpponentScored)
             collision.gameObject.SetActive(false);
             audioSource.Play();
         }

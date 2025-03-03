@@ -13,6 +13,7 @@ public class AnimationFont : MonoBehaviour
         //Method.Invoke();
     }
 
+    //Called by animation
     public void UpdateColorScore()
     {
         text.color = new Color(Random.value, Random.value, Random.value, 1);
