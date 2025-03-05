@@ -166,6 +166,13 @@ public class GameController : MonoBehaviour
                 break;
         }
     }
+
+    //Called by button in scene
+    //Change the max score
+    public void ChangeMaxScore(int max)
+    {
+        maxScore = max;
+    }
     #endregion
 
     #region Score System
